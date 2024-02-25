@@ -1,11 +1,11 @@
-package com.example.blog_app_jakarta_ee;
+package com.example.blog_app_jakarta_ee.web;
 
 import java.io.*;
 
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "helloServlet" , urlPatterns = {"/hello-servelt"})
+@WebServlet(name = "helloServlet" , urlPatterns = {"/hello-servlet"})
 public class HelloServlet extends HttpServlet {
     private String message;
 
