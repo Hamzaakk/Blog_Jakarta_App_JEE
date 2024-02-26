@@ -81,6 +81,16 @@ public class User {
     }
 
 
-
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "UserId=" + UserId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", createdAt=" + createdAt +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

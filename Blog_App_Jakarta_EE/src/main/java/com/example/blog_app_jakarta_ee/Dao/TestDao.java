@@ -10,14 +10,15 @@ public class TestDao {
     public static void main(String[] args) {
         UserDaoImpl userDao = new UserDaoImpl();
         User user = new User();
-        user.setEmail("alilinabouig132@gmail.com");
+        user.setEmail("amina1332@gmail.com");
         user.setFirstName("linaboui");
-        user.setLastName("ali");
+        user.setLastName("afdli");
         user.setPassword("ali123");
         user.setImageUrl("Image/ims/ali.png");
         user.setCreatedAt(new Data() {});
         userDao.addUser(user);
 
-        user = userDao.getUserById(2);
+        user = userDao.getUserById(6);
+        System.out.println(user.toString());
     }
 }

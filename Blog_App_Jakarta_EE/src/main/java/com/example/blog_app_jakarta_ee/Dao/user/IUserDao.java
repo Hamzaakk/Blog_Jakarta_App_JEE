@@ -7,5 +7,6 @@ import java.sql.SQLException;
 public interface IUserDao {
  public User addUser(User user) throws SQLException;
  public User getUserById(int UserId);
+ public boolean authenticate(String email, String password);
 
 }
