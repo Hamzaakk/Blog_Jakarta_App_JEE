@@ -14,7 +14,7 @@ public class UserDaoImpl implements IUserDao {
     public User addUser(User user) {
 
         Connection connection= SingletonConnection.getConnection();
-        String query = "INSERT INTO users (email,password,first_name,last_name,image_url,created_at) VALUES (?,?,?,?,?,?)" ;
+        String query = "INSERT INTO users (email,password,first_name,last_name,image_url,created_at) VALUES (?,?,?,?,?,current_time())" ;
         try{
             PreparedStatement ps = connection.prepareStatement(query);
 
@@ -23,7 +23,7 @@ public class UserDaoImpl implements IUserDao {
             ps.setString(3,user.getFirstName());
             ps.setString(4,user.getLastName());
             ps.setString(5,user.getImageUrl());
-            ps.setDate(6,null);
+          //  ps.setDate(6,null);
 
             ps.executeUpdate();
 
@@ -48,11 +48,11 @@ public class UserDaoImpl implements IUserDao {
     public User getUserById(int UserId) {
         User user = new User();
         Connection connection= SingletonConnection.getConnection();
-        String query = "SELECT * FROM users" ;
+        String query = "SELECT * FROM users WHERE user_id = ?" ;
         try{
             PreparedStatement ps = connection.prepareStatement(query);
 
-
+           ps.setInt(1,UserId);
            ResultSet result =  ps.executeQuery();
 
 
@@ -78,5 +78,10 @@ public class UserDaoImpl implements IUserDao {
 
         return user;
 
+    }
+
+    @Override
+    public boolean authenticate(String email, String password) {
+        return false;
     }
 }
