@@ -4,10 +4,7 @@ import com.example.blog_app_jakarta_ee.Dao.connection.SingletonConnection;
 import com.example.blog_app_jakarta_ee.metier.models.User;
 
 import javax.xml.crypto.Data;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDaoImpl implements IUserDao {
     @Override
@@ -55,8 +52,6 @@ public class UserDaoImpl implements IUserDao {
            ps.setInt(1,UserId);
            ResultSet result =  ps.executeQuery();
 
-
-
             if (result.next()){
 
                 user.setUserId(result.getInt("User_id"));
@@ -65,11 +60,7 @@ public class UserDaoImpl implements IUserDao {
                 user.setFirstName(result.getString("first_name"));
                 user.setLastName(result.getString("last_name"));
                 user.setImageUrl(result.getString("image_url"));
-                user.setCreatedAt((Data) result.getDate("created_at"));
-
-
-
-
+                user.setCreatedAt(result.getDate("created_at"));
             }
             // we dose not close connection : we use singleton
         }catch(SQLException e) {
@@ -81,7 +72,23 @@ public class UserDaoImpl implements IUserDao {
     }
 
     @Override
-    public boolean authenticate(String email, String password) {
-        return false;
+    public User authenticate(String email, String password) {
+        Connection connection = SingletonConnection.getConnection();
+        User user = new User();
+        String query = "SELECT * FROM users where email = ? and password = ?" ;
+        try{
+            PreparedStatement st = connection.prepareStatement(query);
+            st.setString(1,email);
+            st.setString(2,password);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+              user = getUserById(rs.getInt("user_id"));
+                System.out.println("user existe " +user.getUserId());
+            }
+        }catch(Exception exception) {
+            exception.printStackTrace();
+        }
+        System.out.println(user.getUserId());
+        return user;
     }
 }

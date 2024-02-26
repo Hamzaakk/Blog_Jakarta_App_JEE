@@ -1,5 +1,4 @@
 
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,14 +31,14 @@
                                 <h6 class="h5 mb-0">Welcome back!</h6>
                                 <p class="text-muted mt-2 mb-5">Enter your email address and password to access admin panel.</p>
 
-                                <form>
+                                <form method="post" action="">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1">
+                                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" required>
                                     </div>
                                     <div class="form-group mb-5">
                                         <label for="exampleInputPassword1">Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                        <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
                                     </div>
                                     <button type="submit" class="btn btn-theme">Login</button>
                                     <a href="#l" class="forgot-link float-right text-primary">Forgot password?</a>
