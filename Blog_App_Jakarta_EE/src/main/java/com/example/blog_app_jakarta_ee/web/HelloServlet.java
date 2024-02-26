@@ -11,7 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "helloServlet" , urlPatterns = {"/hello-servlet"})
+@WebServlet(urlPatterns = "home")
 public class HelloServlet extends HttpServlet {
     private String message;
     private IPostDao metier;
@@ -21,19 +21,8 @@ public class HelloServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+                request.getRequestDispatcher("home.jsp").forward(request,response);
 
-
-        System.out.println("hello");
-
-        try {
-            List<Post> posts = metier.getPosts();
-            for (Post p:posts){
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-                System.out.println(p.toString());
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void destroy() {
