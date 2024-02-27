@@ -1,4 +1,4 @@
-<%@include file="views/includes/header.jsp"%>
+<%@include file="includes/header.jsp"%>
 <header>
     <!-- Background image -->
     <div
@@ -36,9 +36,9 @@
 <div class="container p-3">
     <div class="row row-cols-1 row-cols-md-4 g-4">
       <%for (int i=0;i<6;i++){ %>
-        <%@include file="views/components/geegCard.jsp"%>
+        <%@include file="components/geegCard.jsp"%>
         <%}%>
     </div>
 </div>
 
-<%@include file="views/includes/footer.jsp"%>
+<%@include file="includes/footer.jsp"%>
