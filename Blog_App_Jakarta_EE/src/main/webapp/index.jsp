@@ -31,7 +31,7 @@
                                 <h6 class="h5 mb-0">Welcome back!</h6>
                                 <p class="text-muted mt-2 mb-5">Enter your email address and password to access admin panel.</p>
 
-                                <form method="post" action="">
+                                <form method="post" action="login.do">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Email address</label>
                                         <input type="email" class="form-control" id="exampleInputEmail1" name="email" required>

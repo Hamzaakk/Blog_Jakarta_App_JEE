@@ -11,12 +11,12 @@ import jakarta.servlet.http.*;
 
 import java.io.IOException;
 
-@WebServlet("/")
+@WebServlet(name = "loginServlet" , urlPatterns = {"*.do"})
 public class LoginServlet extends HttpServlet {
     private User user ;
-   private IUserDao userDao;
+    private IUserDao userDao;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.getRequestDispatcher("views/login/sign_in.jsp").forward(request,response);
+        request.getRequestDispatcher("views/login/index.jsp").forward(request,response);
         System.out.println("hello login");
     }
 
@@ -24,7 +24,6 @@ public class LoginServlet extends HttpServlet {
        user = new User();
        userDao = new UserDaoImpl();
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,10 +46,10 @@ public class LoginServlet extends HttpServlet {
             System.out.println(session.getId());
 
             // Redirect to some authenticated page
-            response.sendRedirect("/home");
+            response.sendRedirect("home");
 
         }else{
-            request.getRequestDispatcher("views/login/sign_in.jsp").forward(request,response);
+            request.getRequestDispatcher("views/login/index.jsp").forward(request,response);
 
         }
 
