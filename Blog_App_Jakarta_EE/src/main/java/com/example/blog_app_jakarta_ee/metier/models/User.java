@@ -11,11 +11,11 @@ public class User {
 
     private String imageUrl;
 
-    private Data createdAt;
+    private Date createdAt;
     private String email;
     private String password;
     public User() {}
-    public User(String firstName, String lastName, String imageUrl, Data createdAt, String email, String password) {
+    public User(String firstName, String lastName, String imageUrl, Date createdAt, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.imageUrl = imageUrl;
@@ -60,7 +60,7 @@ public class User {
         return (Date) createdAt;
     }
 
-    public void setCreatedAt(Data createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -81,6 +81,16 @@ public class User {
     }
 
 
-
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "UserId=" + UserId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", createdAt=" + createdAt +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

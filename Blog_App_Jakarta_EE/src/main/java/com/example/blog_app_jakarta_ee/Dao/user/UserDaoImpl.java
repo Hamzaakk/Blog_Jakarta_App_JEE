@@ -4,17 +4,14 @@ import com.example.blog_app_jakarta_ee.Dao.connection.SingletonConnection;
 import com.example.blog_app_jakarta_ee.metier.models.User;
 
 import javax.xml.crypto.Data;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDaoImpl implements IUserDao {
     @Override
     public User addUser(User user) {
 
         Connection connection= SingletonConnection.getConnection();
-        String query = "INSERT INTO users (email,password,first_name,last_name,image_url,created_at) VALUES (?,?,?,?,?,?)" ;
+        String query = "INSERT INTO users (email,password,first_name,last_name,image_url,created_at) VALUES (?,?,?,?,?,current_time())" ;
         try{
             PreparedStatement ps = connection.prepareStatement(query);
 
@@ -23,7 +20,7 @@ public class UserDaoImpl implements IUserDao {
             ps.setString(3,user.getFirstName());
             ps.setString(4,user.getLastName());
             ps.setString(5,user.getImageUrl());
-            ps.setDate(6,null);
+          //  ps.setDate(6,null);
 
             ps.executeUpdate();
 
@@ -48,14 +45,12 @@ public class UserDaoImpl implements IUserDao {
     public User getUserById(int UserId) {
         User user = new User();
         Connection connection= SingletonConnection.getConnection();
-        String query = "SELECT * FROM users" ;
+        String query = "SELECT * FROM users WHERE user_id = ?" ;
         try{
             PreparedStatement ps = connection.prepareStatement(query);
 
-
+           ps.setInt(1,UserId);
            ResultSet result =  ps.executeQuery();
-
-
 
             if (result.next()){
 
@@ -65,11 +60,7 @@ public class UserDaoImpl implements IUserDao {
                 user.setFirstName(result.getString("first_name"));
                 user.setLastName(result.getString("last_name"));
                 user.setImageUrl(result.getString("image_url"));
-                user.setCreatedAt((Data) result.getDate("created_at"));
-
-
-
-
+                user.setCreatedAt(result.getDate("created_at"));
             }
             // we dose not close connection : we use singleton
         }catch(SQLException e) {
@@ -78,5 +69,26 @@ public class UserDaoImpl implements IUserDao {
 
         return user;
 
+    }
+
+    @Override
+    public User authenticate(String email, String password) {
+        Connection connection = SingletonConnection.getConnection();
+        User user = new User();
+        String query = "SELECT * FROM users where email = ? and password = ?" ;
+        try{
+            PreparedStatement st = connection.prepareStatement(query);
+            st.setString(1,email);
+            st.setString(2,password);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+              user = getUserById(rs.getInt("user_id"));
+                System.out.println("user existe " +user.getUserId());
+            }
+        }catch(Exception exception) {
+            exception.printStackTrace();
+        }
+        System.out.println(user.getUserId());
+        return user;
     }
 }
