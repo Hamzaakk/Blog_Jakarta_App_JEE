@@ -11,7 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(urlPatterns = "home")
+@WebServlet(urlPatterns = "/home")
 public class HelloServlet extends HttpServlet {
     private String message;
     private IPostDao metier;
