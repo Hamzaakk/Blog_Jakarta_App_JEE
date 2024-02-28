@@ -63,7 +63,7 @@
             </div>
             <!-- end card -->
 
-            <p class="text-muted text-center mt-3 mb-0">Don't have an account? <a href="" class="text-primary ml-1">register</a></p>
+            <p class="text-muted text-center mt-3 mb-0">Don't have an account? <a href="/Blog_App_Jakarta_EE_war/register" class="text-primary ml-1">register</a></p>
 
             <!-- end row -->
 
