@@ -22,7 +22,6 @@ public class HelloServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
                 request.getRequestDispatcher("views/home.jsp").forward(request,response);
-
     }
 
     public void destroy() {
