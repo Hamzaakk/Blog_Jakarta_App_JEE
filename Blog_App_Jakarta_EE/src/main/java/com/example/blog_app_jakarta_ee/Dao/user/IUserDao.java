@@ -8,5 +8,6 @@ public interface IUserDao {
  public User addUser(User user) throws SQLException;
  public User getUserById(int UserId);
  public User authenticate(String email, String password);
+ public boolean checkInput(String f_name, String l_name, String email, String password, String image);
 
 }
