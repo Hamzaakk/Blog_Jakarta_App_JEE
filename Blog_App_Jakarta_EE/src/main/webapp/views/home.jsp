@@ -11,9 +11,8 @@
         <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
             <div class="d-flex justify-content-center align-items-center h-100">
                 <div class="text-white">
-                    <h1 class="mb-3">Heading</h1>
-                    <h4 class="mb-3">Subheading</h4>
-                    <a data-mdb-ripple-init class="btn btn-outline-light btn-lg" href="#!" role="button"
+                    <h1 class="mb-3">GEEGKS</h1>
+                    <a data-mdb-ripple-init class="btn btn-outline-light btn-lg" href="/Blog_App_Jakarta_EE_war/addNewPost" role="button"
                     >Call to action</a
                     >
                 </div>
