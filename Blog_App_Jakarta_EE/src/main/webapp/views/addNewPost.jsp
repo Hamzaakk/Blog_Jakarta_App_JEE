@@ -8,7 +8,7 @@
     <div class="alert alert-primary" role="alert">
         A simple primary alert—check it out!
     </div>
-<form class="my-5" action="addNewPost.php" method="POST">
+<form class="my-5" action="addNewPost.php" method="POST" enctype="multipart/form-data">
     <!-- 2 column grid layout with text inputs for the first and last names -->
     <div class="row mb-4">
         <div class="col">
@@ -19,7 +19,7 @@
         </div>
         <div class="col">
             <div data-mdb-input-init class="form-outline">
-                <input type="file" id="form6Example2" class="form-control" name="image"/>
+                <input type="file" id="form6Example2" name="image" class="form-control" />
             </div>
         </div>
     </div>

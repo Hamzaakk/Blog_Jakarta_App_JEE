@@ -7,17 +7,22 @@ import java.util.List;
 import com.example.blog_app_jakarta_ee.Dao.post.IPostDao;
 import com.example.blog_app_jakarta_ee.Dao.post.PostDaoImpl;
 import com.example.blog_app_jakarta_ee.metier.models.Post;
+import com.example.blog_app_jakarta_ee.services.Services;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 @WebServlet(urlPatterns = {"/home" , "/addNewPost" ,"*.php"})
+@MultipartConfig
 public class HelloServlet extends HttpServlet {
     private String message;
     private IPostDao metier;
+    private Post post;
 
     public void init() {
         metier=new PostDaoImpl();
+        post = new Post();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -40,8 +45,23 @@ public class HelloServlet extends HttpServlet {
         if (path.equals("/addNewPost.php")) {
             String title = request.getParameter("title");
             String details= request.getParameter("details");
+            String image = request.getParameter("image");
 
-            System.out.println(title + "  " + details);
+            post.setTitle(title);
+
+            // Print or use the current directory path
+            String uploadDirectory = "C:\\Users\\DELL 6430\\abdelmalek sadi\\Desktop\\javaexamprepaA\\Blog_App_Jakarta_EE\\src\\main\\webapp\\images\\upload";
+            String fileName = Services.uploadImageTOServergetByPostRequest(uploadDirectory,request);
+            String imagePath = "/images/upload/" + fileName;
+            post.setImage(imagePath);
+
+            try{
+                post=metier.AddNewPost(post);
+                System.out.println(post);
+
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
     }
