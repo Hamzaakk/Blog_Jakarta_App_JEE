@@ -11,19 +11,20 @@
     <!-- Jquery -->
     <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
     <!-- Main Style Css -->
-    <link rel="stylesheet" href="css/registerStyle.css"/>
+    <style><%@ include file="../../registerStyle.css"%></style>
+
 </head>
 <body class="form-v2">
 <div class="page-content">
     <div class="form-v2-content">
         <div class="form-left">
-            <img src="images/form-v2.jpg" alt="form">
-            <div class="text-1">
-                <p>Bring Your Music Along<span>try Unlimited</span></p>
-            </div>
-            <div class="text-2">
-                <p><span>$9.99</span>/ Month</p>
-            </div>
+<%--            <img src="../images/form-v2.jpg" alt="form">--%>
+<%--            <div class="text-1">--%>
+<%--                <p>Bring Your Music Along<span>try Unlimited</span></p>--%>
+<%--            </div>--%>
+<%--            <div class="text-2">--%>
+<%--                <p><span>$9.99</span>/ Month</p>--%>
+<%--            </div>--%>
         </div>
         <form class="form-detail" action="register.do" method="POST" id="myform">
             <h2>Registration Form</h2>
@@ -49,37 +50,6 @@
         </form>
     </div>
 </div>
-<script>
-    // just for the demos, avoids form submit
-    jQuery.validator.setDefaults({
-        debug: true,
-        success:  function(label){
-            label.attr('id', 'valid');
-        },
-    });
-    $( "#myform" ).validate({
-        rules: {
-            password: "required",
-            confirm_password: {
-                equalTo: "#password"
-            }
-        },
-        messages: {
-            full_name: {
-                required: "Please provide an username"
-            },
-            your_email: {
-                required: "Please provide an email"
-            },
-            password: {
-                required: "Please provide a password"
-            },
-            confirm_password: {
-                required: "Please provide a password",
-                equalTo: "Wrong Password"
-            }
-        }
-    });
-</script>
+
 </body>
 </html>

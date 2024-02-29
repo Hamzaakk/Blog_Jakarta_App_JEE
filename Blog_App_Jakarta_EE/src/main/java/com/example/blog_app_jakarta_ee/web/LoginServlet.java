@@ -39,31 +39,33 @@ public class LoginServlet extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
 
-
             user = userDao.authenticate(email, password);
             if (user.getUserId() != 0) {
-                HttpSession session = request.getSession();
+                // Invalidate existing session
+                HttpSession existingSession = request.getSession(false);
+                if (existingSession != null) {
+                    existingSession.invalidate();
+                }
+
+                // Create a new session
+                HttpSession session = request.getSession(true);
 
                 session.setAttribute("username", user.getFirstName());
                 session.setAttribute("user_id", user.getUserId());
 
                 // Set cookie for session management
                 Cookie sessionCookie = new Cookie("sessionId", session.getId());
-
                 response.addCookie(sessionCookie);
                 System.out.println(session.getId());
 
                 // Redirect to some authenticated page
                 response.sendRedirect("home");
-
             } else {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-
             }
         } else if (path.equals("/register.do")) {
             System.out.println("registerrrrrrrrr");
-
-
         }
     }
+
 }
