@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface IPostDao {
     public List<Post> getPosts() throws SQLException;
-    public List<Post> getPostsById(Long id);
+    public Post getPostsById(Long id);
     public List<Post> getPostsByKey(String key);
     public Post AddNewPost(Post post);
     public Post updatePost(Post p);
-    public Post deletePost(Long id);
+    public void deletePost(Long id);
 }

@@ -1,6 +1,8 @@
 package com.example.blog_app_jakarta_ee.web;
 
 
+import com.example.blog_app_jakarta_ee.Dao.post.IPostDao;
+import com.example.blog_app_jakarta_ee.Dao.post.PostDaoImpl;
 import com.example.blog_app_jakarta_ee.Dao.user.IUserDao;
 import com.example.blog_app_jakarta_ee.Dao.user.UserDaoImpl;
 import com.example.blog_app_jakarta_ee.metier.models.User;
@@ -15,9 +17,11 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     private User user;
     private IUserDao userDao;
+    private IPostDao metier;
     public void init() {
         user = new User();
         userDao = new UserDaoImpl();
+        metier = new PostDaoImpl();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -64,7 +68,11 @@ public class LoginServlet extends HttpServlet {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             }
         } else if (path.equals("/register.do")) {
-            System.out.println("registerrrrrrrrr");
+            String f_name = request.getParameter("f-name");
+            String l_name = request.getParameter("l-name");
+            String email  = request.getParameter("email");
+            String password = request.getParameter("password");
+            String image = request.getParameter("image");
         }
     }
 
