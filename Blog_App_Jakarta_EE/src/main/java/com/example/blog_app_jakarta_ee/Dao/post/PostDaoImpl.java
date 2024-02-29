@@ -85,25 +85,28 @@ public class PostDaoImpl implements IPostDao{
     @Override
     public Post AddNewPost(Post post) {
         Connection connection = SingletonConnection.getConnection();
-        String query = "INSERT INTO posts (title, image_url, content, created_at) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO posts (title, image_url, content, created_at) VALUES (?, ?, ?,current_time())";
         try {
-            PreparedStatement pr = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pr = connection.prepareStatement(query);
             pr.setString(1, post.getTitle());
             pr.setString(2, post.getImage());
             pr.setString(3, post.getContent());
-            pr.setDate(4, new Date(post.getCreateAt().getTime())); // Assuming getCreateAt() returns a java.util.Date
-            int affectedRows = pr.executeUpdate();
-            if (affectedRows == 0) {
-                throw new SQLException("Creating post failed, no rows affected.");
+
+            pr.executeUpdate();
+
+
+            PreparedStatement ps2 = connection.prepareStatement("SELECT MAX(post_id) AS MAXID from posts ");
+
+            ResultSet result = ps2.executeQuery();
+            if (result.next()){
+                post.setId(result.getLong("MAXID"));
+
+                post = getPostsById(result.getLong("MAXID"));
+
+
             }
-            try (ResultSet generatedKeys = pr.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    post.setId(generatedKeys.getLong(1));
-                    // Since userID is auto-incremented, you don't need to set it explicitly here
-                } else {
-                    throw new SQLException("Creating post failed, no ID obtained.");
-                }
-            }
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
