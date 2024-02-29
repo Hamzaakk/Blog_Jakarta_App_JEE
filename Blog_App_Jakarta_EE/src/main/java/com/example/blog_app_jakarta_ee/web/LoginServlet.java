@@ -5,23 +5,25 @@ import com.example.blog_app_jakarta_ee.Dao.post.IPostDao;
 import com.example.blog_app_jakarta_ee.Dao.post.PostDaoImpl;
 import com.example.blog_app_jakarta_ee.Dao.user.IUserDao;
 import com.example.blog_app_jakarta_ee.Dao.user.UserDaoImpl;
+import com.example.blog_app_jakarta_ee.metier.models.Post;
 import com.example.blog_app_jakarta_ee.metier.models.User;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
+import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "loginServlet" , urlPatterns = {"/register","/","*.do"})
 public class LoginServlet extends HttpServlet {
     private User user;
     private IUserDao userDao;
-    private IPostDao metier;
     public void init() {
         user = new User();
         userDao = new UserDaoImpl();
-        metier = new PostDaoImpl();
+
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -73,6 +75,22 @@ public class LoginServlet extends HttpServlet {
             String email  = request.getParameter("email");
             String password = request.getParameter("password");
             String image = request.getParameter("image");
+            if (userDao.checkInput(f_name,l_name,email,password,image)){
+                User newUser=new User();
+                newUser.setFirstName(f_name);
+                newUser.setLastName(l_name);
+                newUser.setEmail(email);
+                newUser.setPassword(password);
+                newUser.setImageUrl(image);
+
+                try {
+                    user = userDao.addUser(newUser);
+                    request.setAttribute("newUser", user);
+                    response.sendRedirect("home");
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 

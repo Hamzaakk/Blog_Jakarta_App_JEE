@@ -33,13 +33,13 @@
 <div class="page-content">
     <div class="form-v2-content">
         <div class="form-left">
-<%--            <img src="../images/form-v2.jpg" alt="form">--%>
-<%--            <div class="text-1">--%>
-<%--                <p>Bring Your Music Along<span>try Unlimited</span></p>--%>
-<%--            </div>--%>
-<%--            <div class="text-2">--%>
-<%--                <p><span>$9.99</span>/ Month</p>--%>
-<%--            </div>--%>
+            <img src="images/form-v2.jpg" alt="form">
+            <div class="text-1">
+                <p>Bring Your Music Along<span>try Unlimited</span></p>
+            </div>
+            <div class="text-2">
+                <p><span>$9.99</span>/ Month</p>
+            </div>
         </div>
         <form class="form-detail" action="register.do" method="POST" id="myform">
             <h2>Registration Form</h2>

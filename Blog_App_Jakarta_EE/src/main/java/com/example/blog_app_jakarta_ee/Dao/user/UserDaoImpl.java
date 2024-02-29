@@ -91,4 +91,8 @@ public class UserDaoImpl implements IUserDao {
         System.out.println(user.getUserId());
         return user;
     }
+    @Override
+    public boolean checkInput(String f_name, String l_name, String email, String password, String image){
+        return !f_name.trim().isEmpty() &&!l_name.trim().isEmpty() &&!email.trim().isEmpty() &&!password.trim().isEmpty() &&!image.trim().isEmpty() ;
+    }
 }
