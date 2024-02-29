@@ -11,7 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(urlPatterns = "/home")
+@WebServlet(urlPatterns = {"/home" , "/addNewPost" ,"*.php"})
 public class HelloServlet extends HttpServlet {
     private String message;
     private IPostDao metier;
@@ -21,9 +21,28 @@ public class HelloServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-                request.getRequestDispatcher("views/home.jsp").forward(request,response);
+        String path = request.getServletPath();
+        if (path.equals("/home")) {
+            request.getRequestDispatcher("views/home.jsp").forward(request,response);
+        } else if (path.equals("/addNewPost")) {
+         request.getRequestDispatcher("views/addNewPost.jsp").forward(request, response);
+        }
+
     }
 
+
+
     public void destroy() {
+    }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String path = request.getServletPath();
+        if (path.equals("/addNewPost.php")) {
+            String title = request.getParameter("title");
+            String details= request.getParameter("details");
+
+            System.out.println(title + "  " + details);
+
+        }
     }
 }
