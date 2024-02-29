@@ -3,15 +3,12 @@ package com.example.blog_app_jakarta_ee.web;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpFilter;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/*"})
-public class loginFilter extends HttpFilter {
+@WebFilter(urlPatterns = {"/home"})
+public class LoginFilter extends HttpFilter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -23,11 +20,24 @@ public class loginFilter extends HttpFilter {
         if (session != null && session.getAttribute("username") != null) {
             // User is authenticated, continue with the request
             System.out.println("success");
+
+            // Check for session cookie
+            Cookie[] cookies = httpRequest.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if ("sessionId".equals(cookie.getName())) {
+                        String sessionId = cookie.getValue();
+                        // Do something with sessionId
+                        System.out.println("SessionId found: " + sessionId);
+                        break;
+                    }
+                }
+            }
+
             chain.doFilter(request, response);
         } else {
             // User is not authenticated, redirect to login page
             httpResponse.sendRedirect(httpRequest.getContextPath()+"/");
-
             System.out.println("failed");
         }
     }
