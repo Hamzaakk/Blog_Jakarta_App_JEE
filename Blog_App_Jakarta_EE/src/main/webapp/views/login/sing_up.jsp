@@ -26,21 +26,21 @@
             rel="stylesheet"
     />
     <!-- Main Style Css -->
-    <style><%@ include file="../../registerStyle.css"%></style>
+    <style><%@ include file="../../css/registerStyle.css"%></style>
 
 </head>
 <body class="form-v2">
 <div class="page-content">
     <div class="form-v2-content">
-        <div class="form-left">
-            <img src="images/form-v2.jpg" alt="form">
-            <div class="text-1">
-                <p>Bring Your Music Along<span>try Unlimited</span></p>
-            </div>
-            <div class="text-2">
-                <p><span>$9.99</span>/ Month</p>
-            </div>
-        </div>
+<%--        <div class="form-left">--%>
+<%--            <img src="https://img.freepik.com/free-photo/smart-readhead-bearded-man-white-tshirt-holding-folder-pen_171337-7856.jpg?t=st=1709238648~exp=1709242248~hmac=3413baf249b410e5de1b6896f916a063d21a5501655aee3924ceb7d960aa75a3&w=360" alt="form">--%>
+<%--            <div class="text-1">--%>
+<%--                <p>Bring Your Music Along<span>try Unlimited</span></p>--%>
+<%--            </div>--%>
+<%--            <div class="text-2">--%>
+<%--                <p><span>$9.99</span>/ Month</p>--%>
+<%--            </div>--%>
+<%--        </div>--%>
         <form class="form-detail" action="register.do" method="POST" id="myform">
             <h2>Registration Form</h2>
             <div class="form-row">
