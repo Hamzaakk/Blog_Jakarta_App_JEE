@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css" rel="stylesheet"/>
-    <style><%@ include file="loginStyle.css"%></style>
+    <style><%@ include file="css/loginStyle.css"%></style>
     <title>Document</title>
 
 </head>
@@ -73,7 +73,7 @@
     <!-- Row -->
 </div>
 
-
+<img src="webapp/META-INF/medium.png">
 </body>
 
 </html>

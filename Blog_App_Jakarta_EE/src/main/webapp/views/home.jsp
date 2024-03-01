@@ -1,4 +1,8 @@
+<%@ page import="com.example.blog_app_jakarta_ee.metier.models.Post" %>
+<%@ page import="java.util.List" %>
 <%@include file="includes/header.jsp"%>
+<% List<Post> posts = (List<Post>) request.getAttribute("allPosts"); %>
+
 <header>
     <!-- Background image -->
     <div
@@ -34,8 +38,8 @@
 </div>
 <div class="container p-3">
     <div class="row row-cols-1 row-cols-md-4 g-4">
-      <%for (int i=0;i<6;i++){ %>
-        <%@include file="components/geegCard.jsp"%>
+      <%for(Post post:posts){ %>
+        <%@include file="components/geegCard.jsp" %>
         <%}%>
     </div>
 </div>

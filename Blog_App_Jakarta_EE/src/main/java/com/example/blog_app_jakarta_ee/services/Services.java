@@ -13,7 +13,6 @@ public class Services {
   public static String uploadImageTOServergetByPostRequest(String  uploadDirectory , HttpServletRequest request ) throws ServletException, IOException {
     //  String uploadDirectory = "C:\\Users\\DELL 6430\\abdelmalek sadi\\Desktop\\javaexamprepaA\\Blog_App_Jakarta_EE\\src\\main\\webapp\\images\\upload";
       // Create the directory if it doesn't exist
-
       File dir = new File(uploadDirectory);
       if (!dir.exists()) {
           dir.mkdirs();

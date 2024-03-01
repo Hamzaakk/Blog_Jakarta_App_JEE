@@ -28,11 +28,21 @@ public class HelloServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String path = request.getServletPath();
         if (path.equals("/home")) {
-            request.getRequestDispatcher("views/home.jsp").forward(request,response);
+
+            try {
+                List<Post> allPost = metier.getPosts();
+                request.setAttribute("allPosts", allPost);
+                for (Post post1:allPost){
+                    System.out.println(post1.getTitle());
+                    System.out.println(post1.getImage());
+                }
+                request.getRequestDispatcher("views/home.jsp").forward(request,response);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         } else if (path.equals("/addNewPost")) {
          request.getRequestDispatcher("views/addNewPost.jsp").forward(request, response);
         }
-
     }
 
 
@@ -50,15 +60,14 @@ public class HelloServlet extends HttpServlet {
             post.setTitle(title);
 
             // Print or use the current directory path
-            String uploadDirectory = "C:\\Users\\DELL 6430\\abdelmalek sadi\\Desktop\\javaexamprepaA\\Blog_App_Jakarta_EE\\src\\main\\webapp\\images\\upload";
+            String uploadDirectory = "C:\\Users\\DELL VOS\\OneDrive\\Bureau\\Blog_Jakarta_App_JEE\\Blog_App_Jakarta_EE\\src\\main\\webapp\\WEB-INF\\images\\upload";
             String fileName = Services.uploadImageTOServergetByPostRequest(uploadDirectory,request);
-            String imagePath = "/images/upload/" + fileName;
+            String imagePath = fileName;
             post.setImage(imagePath);
-
+            post.setContent(details);
             try{
                 post=metier.AddNewPost(post);
-                System.out.println(post);
-
+                response.sendRedirect("home");
             }catch (Exception e) {
                 e.printStackTrace();
             }

@@ -53,6 +53,7 @@ public class LoginServlet extends HttpServlet {
                     existingSession.invalidate();
                 }
 
+
                 // Create a new session
                 HttpSession session = request.getSession(true);
 
