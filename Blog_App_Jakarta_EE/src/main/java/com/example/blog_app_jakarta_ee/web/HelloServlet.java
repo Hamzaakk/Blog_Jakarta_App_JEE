@@ -13,7 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(urlPatterns = {"/home" , "/addNewPost" ,"*.php"})
+@WebServlet(urlPatterns = {"/delete","/edit","/home" , "/addNewPost" ,"*.php"})
 @MultipartConfig
 public class HelloServlet extends HttpServlet {
     private String message;
@@ -28,7 +28,6 @@ public class HelloServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String path = request.getServletPath();
         if (path.equals("/home")) {
-
             try {
                 List<Post> allPost = metier.getPosts();
                 request.setAttribute("allPosts", allPost);
@@ -42,6 +41,17 @@ public class HelloServlet extends HttpServlet {
             }
         } else if (path.equals("/addNewPost")) {
          request.getRequestDispatcher("views/addNewPost.jsp").forward(request, response);
+        }else if(path.equals("/update.php")){
+            Long id = Long.parseLong(request.getParameter("id"));
+            System.out.println(id);
+            post=metier.getPostsById(id);
+            System.out.println(post.toString());
+            request.setAttribute("post", post);
+            request.getRequestDispatcher("views/updatePost.jsp").forward(request, response);
+        }else if(path.equals("/delete.php")){
+            Long id = Long.parseLong(request.getParameter("id"));
+            metier.deletePost(id);
+            response.sendRedirect("home");
         }
     }
 
@@ -56,7 +66,6 @@ public class HelloServlet extends HttpServlet {
             String title = request.getParameter("title");
             String details= request.getParameter("details");
             String image = request.getParameter("image");
-
             post.setTitle(title);
 
             // Print or use the current directory path
@@ -71,7 +80,31 @@ public class HelloServlet extends HttpServlet {
             }catch (Exception e) {
                 e.printStackTrace();
             }
-
+        } else if (path.equals("/edit.php")) {
+            Post postUpdated = new Post();
+            //get parameters
+            Long id = Long.parseLong(request.getParameter("id"));
+            Long id_u = Long.parseLong(request.getParameter("id_u"));
+            String title = request.getParameter("title");
+            String details= request.getParameter("details");
+            String image = request.getParameter("image");
+            //upload image here
+            String uploadDirectory = "C:\\Users\\DELL VOS\\OneDrive\\Bureau\\Blog_Jakarta_App_JEE\\Blog_App_Jakarta_EE\\src\\main\\webapp\\WEB-INF\\images\\upload";
+            String fileName = Services.uploadImageTOServergetByPostRequest(uploadDirectory,request);
+            String imagePath = fileName;
+            //set parameters
+            postUpdated.setTitle(title);
+            postUpdated.setId(id);
+            postUpdated.setUserID(id_u);
+            postUpdated.setImage(imagePath);
+            postUpdated.setContent(details);
+            try{
+                post=metier.updatePost(postUpdated);
+                System.out.println(path.toString());
+                response.sendRedirect("home");
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
