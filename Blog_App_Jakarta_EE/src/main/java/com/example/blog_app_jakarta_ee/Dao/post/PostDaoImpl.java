@@ -114,18 +114,16 @@ public class PostDaoImpl implements IPostDao{
     }
 
     @Override
-    public Post updatePost(Post p) {
+    public Post updatePost(Post post) {
         Connection connection = SingletonConnection.getConnection();
-        String query = "UPDATE posts SET title=?, image_url=?, content=?, created_at=?, user_id=? WHERE post_id=?";
-        Post post = new Post();
+        String query = "UPDATE posts SET title=?, image_url=?, content=?, created_at=current_time(), user_id=? WHERE post_id=?";
         try {
             PreparedStatement pr = connection.prepareStatement(query);
             pr.setString(1, post.getTitle());
             pr.setString(2, post.getImage());
             pr.setString(3, post.getContent());
-            pr.setDate(4, new Date(post.getCreateAt().getTime()));
-            pr.setLong(5, post.getUserID());
-            pr.setLong(6, post.getId());
+            pr.setLong(4, post.getUserID());
+            pr.setLong(5, post.getId());
             int affectedRows = pr.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Updating post failed, no rows affected.");

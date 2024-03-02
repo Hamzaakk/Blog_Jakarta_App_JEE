@@ -73,7 +73,7 @@
     <!-- Row -->
 </div>
 
-<img src="webapp/META-INF/medium.png">
+<img src="./images/image_1709323783155.jpg">
 </body>
 
 </html>
